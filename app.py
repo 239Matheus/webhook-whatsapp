@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -10,13 +10,14 @@ def webhook():
         token = request.args.get("hub.verify_token")
         challenge = request.args.get("hub.challenge")
         if token == VERIFY_TOKEN:
-            return challenge, 200
+            return str(challenge)
         return "Token inválido", 403
 
     if request.method == "POST":
         data = request.json
-        print("Mensagem recebida:", data)
-        return "EVENT_RECEIVED", 200
+        print("📥 Mensagem recebida:")
+        print(data)
+        return jsonify(status="Mensagem recebida com sucesso"), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(port=8080, host="0.0.0.0")
