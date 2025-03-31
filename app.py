@@ -2,7 +2,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-VERIFY_TOKEN = "seu_token_personalizado"
+VERIFY_TOKEN = "matheus123"
 
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
