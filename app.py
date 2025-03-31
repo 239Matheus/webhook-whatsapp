@@ -11,9 +11,12 @@ def webhook():
         challenge = request.args.get("hub.challenge")
         if token == VERIFY_TOKEN:
             return challenge, 200
-        return "Token de verificação inválido.", 403
+        return "Token inválido", 403
 
     if request.method == "POST":
         data = request.json
         print("Mensagem recebida:", data)
-        return "Mensagem recebida", 200
+        return "EVENT_RECEIVED", 200
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
